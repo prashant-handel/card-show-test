@@ -1,25 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState, useEffect } from 'react';
+import ShowCards from './pages/ShowCards';
+import Card from './components/Card';
 
-function App() {
+export default function App() {
+  useEffect(()=>getData,[])
+  const [data, setData] = useState([]);
+  let getData = async () => {
+    let response = await fetch("https://jsonplaceholder.typicode.com/posts")
+    let dataGot = await response.json();
+    setData(dataGot);
+    // console.log(dataGot);
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Card data = {data}/>
+      <ShowCards data= {data} />
     </div>
   );
 }
-
-export default App;
